@@ -1,6 +1,6 @@
 package com.example.simple_project_in_spring.controller;
 
-import com.example.simple_project_in_spring.dto.CreateOrderDto;
+import com.example.simple_project_in_spring.dto.OrderDto;
 import com.example.simple_project_in_spring.model.Order;
 import com.example.simple_project_in_spring.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class OrderController {
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<Void> create(@RequestBody CreateOrderDto createOrderDto) {
-        service.saveOrder(createOrderDto);
+    public ResponseEntity<Void> create(@RequestBody OrderDto orderDto) {
+        service.saveOrder(orderDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -36,8 +36,8 @@ public class OrderController {
 
     @PutMapping("/{orderId}")
     public ResponseEntity<Order> edit(@PathVariable Integer orderId,
-                                      @RequestBody CreateOrderDto createOrderDto) {
-        service.editOrderById(orderId, createOrderDto);
+                                      @RequestBody OrderDto orderDto) {
+        service.editOrderById(orderId, orderDto);
         return ResponseEntity.ok(service.findOrderById(orderId).get());
     }
 
