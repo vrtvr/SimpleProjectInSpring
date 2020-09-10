@@ -1,7 +1,7 @@
 package com.example.simple_project_in_spring.service;
 
 import com.example.simple_project_in_spring.dto.OrderDto;
-import com.example.simple_project_in_spring.model.Order;
+import com.example.simple_project_in_spring.model.OrderCustomer;
 import com.example.simple_project_in_spring.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(OrderDto orderDto) {
-        Order order = Order.builder()
+        OrderCustomer orderCustomer = OrderCustomer.builder()
                 .description(orderDto.getDescription())
-                .orderType(orderDto.getType())
+                .type(orderDto.getType())
                 .build();
 
-    repository.save(order);
+    repository.save(orderCustomer);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void editOrderById(Integer id, OrderDto orderDto) {
-        Optional<Order> order = repository.findById(id);
+        Optional<OrderCustomer> order = repository.findById(id);
         if (order.isEmpty())
             return;
 
-        Order o = order.get();
+        OrderCustomer o = order.get();
         if (orderDto.getDescription() != null && !orderDto.getDescription().isEmpty())
             o.setDescription(orderDto.getDescription());
         if (orderDto.getType() != null)
@@ -48,12 +48,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAll() {
+    public List<OrderCustomer> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Optional<Order> findOrderById(Integer id) {
+    public Optional<OrderCustomer> findOrderById(Integer id) {
         return repository.findById(id);
     }
 }
